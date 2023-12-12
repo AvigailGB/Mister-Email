@@ -1,0 +1,46 @@
+.email-preview .email-container {
+    display: flex;
+    cursor: pointer;
+}
+
+.email-container div {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.email-container div .read{
+    background-color: #b4b4b4;
+    color:#8b8b8b
+}
+
+.email-preview .img-star{
+    width: 20px;
+    padding: 4px;
+    /* margin-top: 4px; */
+    opacity: 0.3;
+}
+
+
+svg {
+    color: yellow;
+}
+
+.email-preview .img-star .starred{
+    background-color: yellow;
+} 
+
+.email-container .email-titel{
+    /* flex-grow: 1; */
+    min-width: 150px;
+
+}
+.email-container .email-subject{
+    flex-grow: 1;
+    flex-shrink: 4;
+    min-width: 100px;
+}
+.email-container .email-time :hover{
+    display: none;
+}

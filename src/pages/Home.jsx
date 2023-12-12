@@ -1,4 +1,4 @@
-import imgUrl from '../assets/imgs/react.png'
+import imgUrl from '../assets/imgs/star-outline-svgrepo-com.svg'
 
 export function Home() {
     return (
