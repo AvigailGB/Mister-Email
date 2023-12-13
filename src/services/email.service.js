@@ -7,27 +7,24 @@ export const emailService = {
   remove,
   getById,
   createEmail,
-  emailDateTimeDisplay
+  emailDateTimeDisplay,
+  getDefultFilter
 }
 
 const STORAGE_KEY = "emails"
 
 _createEmails()
 
-async function query() {
+async function query(filterBy) {
   let emails = await storageService.query(STORAGE_KEY)
-  // if (filterBy) {
-  //   var { status, txt, isRead } = filterBy
-  //   // maxBatteryStatus = maxBatteryStatus || Infinity
-  //   // minBatteryStatus = minBatteryStatus || 0
-  //   // emails = emails.filter(
-  //     (email) =>
-  //       email.status.includes(status) &&
-  //       email.txt.toLowerCase().includes(model.toLowerCase()) &&
-  //       email.batteryStatus < maxBatteryStatus &&
-  //       email.batteryStatus > minBatteryStatus
-  //   )
-  // }
+  if (filterBy) {
+    let { txt } = filterBy
+    const regeTxtTerm = new RegExp(txt, 'i')
+    emails = emails.filter(email =>
+      regeTxtTerm.test(email.subject)||
+      regeTxtTerm.test(email.body) 
+      )
+  }
   return emails
 }
 
@@ -52,6 +49,12 @@ function emailDateTimeDisplay(dateTime) {
   let dateTimeDisplay = new Date(dateTime);
   return dateTimeDisplay.toDateString() == new Date().toDateString() ? dateTimeDisplay.toLocaleTimeString() : dateTimeDisplay.toLocaleDateString('en-US')
 }  
+
+function getDefultFilter() {
+  return {
+    txt: ''
+  }
+}
 
 function createEmail(subject = "", body = "", from = "momo@momo.com" , to = "user@appsus.com") {
   return {

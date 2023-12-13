@@ -2,21 +2,23 @@ import { useState } from 'react'
 import imgUrl from '../assets/imgs/star-outline-svgrepo-com.svg'
 import { emailService } from '../services/email.service'
 
-export function EmailPreview({ email }) {
+export function EmailPreview({ email , onUpdateEmail}) {
     const [isStarred, setIsStarred] = useState(false)
     const [isRead, setIsRead] = useState(false)
 
     function setStarred(){
         email.isStarred = true
-        emailService.save(email)
+        onUpdateEmail(email)
         setIsStarred(!isStarred)
     }
 
     function setRead(){
-        if(!email.isRead){
-            email.isRead = true
-            emailService.save(email)
-            setIsRead(true)
+      console.log(email);
+      if(!email.isRead){
+        email.isRead = true
+        onUpdateEmail(email)
+        setIsRead(true)
+        console.log(email);
         }
     }
 

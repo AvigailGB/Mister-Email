@@ -1,0 +1,7 @@
+.email-index{
+    display: flex;
+}
+
+.email-index .tool-bar{
+    width: 200px;
+}
