@@ -1,6 +1,7 @@
 .email-preview .email-container {
     display: flex;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .email-container div {
@@ -11,25 +12,29 @@
 }
 
 .email-preview .read{
-    background-color: rgb(236, 242, 254);
-    color: #8b8b8b;
-}
+    background-color: rgb(236, 242, 254); 
+    font-weight: normal;
+ }
 
-.email-preview .img-star{
-    width: 20px;
-    padding: 4px;
-    /* margin-top: 4px; */
+.email-starred{
+    color: rgb(238, 197, 16);
+}
+.email-star{
     opacity: 0.3;
 }
 
-
-svg {
-    color: yellow;
+.email-starred.unstarred{
+    display: none;
 }
-
-.email-preview .img-star .starred{
-    background-color: yellow;
-} 
+.email-starred.starred {
+    display: inline;
+}
+.email-star.starred{
+    display: none;
+}
+.email-star.unstarred{
+    display: inline;
+}
 
 .email-container .email-titel{
     /* flex-grow: 1; */

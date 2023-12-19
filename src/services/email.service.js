@@ -7,8 +7,7 @@ export const emailService = {
   remove,
   getById,
   createEmail,
-  emailDateTimeDisplay,
-  getDefultFilter
+  emailDateTimeDisplay
 }
 
 const STORAGE_KEY = "emails"
@@ -18,12 +17,17 @@ _createEmails()
 async function query(filterBy) {
   let emails = await storageService.query(STORAGE_KEY)
   if (filterBy) {
-    let { txt } = filterBy
+    let { txt, isRead } = filterBy
     const regeTxtTerm = new RegExp(txt, 'i')
+    if(isRead){
+      isRead = isRead === 'read' ? true : false
+      emails = emails.filter(email => email.isRead === isRead)
+    }
     emails = emails.filter(email =>
       regeTxtTerm.test(email.subject)||
-      regeTxtTerm.test(email.body) 
+      regeTxtTerm.test(email.body)
       )
+    console.log(emails);
   }
   return emails
 }
@@ -49,12 +53,6 @@ function emailDateTimeDisplay(dateTime) {
   let dateTimeDisplay = new Date(dateTime);
   return dateTimeDisplay.toDateString() == new Date().toDateString() ? dateTimeDisplay.toLocaleTimeString() : dateTimeDisplay.toLocaleDateString('en-US')
 }  
-
-function getDefultFilter() {
-  return {
-    txt: ''
-  }
-}
 
 function createEmail(subject = "", body = "", from = "momo@momo.com" , to = "user@appsus.com") {
   return {
