@@ -14,11 +14,18 @@ const STORAGE_KEY = "emails"
 
 _createEmails()
 
-async function query(filterBy) {
+async function query(filterBy, loggedinUser) {
   let emails = await storageService.query(STORAGE_KEY)
   if (filterBy) {
-    let { txt, isRead } = filterBy
+    let { txt, isRead, isStarred, disply} = filterBy
     const regeTxtTerm = new RegExp(txt, 'i')
+    if(disply){
+      emails = emails.filter(email => email[disply] === loggedinUser.email)
+    }
+    console.log(isStarred);
+    if(isStarred){
+      emails = emails.filter(email => email.isStarred)
+    }
     if(isRead){
       isRead = isRead === 'read' ? true : false
       emails = emails.filter(email => email.isRead === isRead)
@@ -27,7 +34,6 @@ async function query(filterBy) {
       regeTxtTerm.test(email.subject)||
       regeTxtTerm.test(email.body)
       )
-    console.log(emails);
   }
   return emails
 }
@@ -45,7 +51,8 @@ function save(emailToSave) {
     return storageService.put(STORAGE_KEY, emailToSave)
   } else {
     // emailToSave.isOn = false
-    return storageService.post(STORAGE_KEY, emailToSave)
+    const newEmail = createEmail(emailToSave.subject, emailToSave.body, emailToSave.from, emailToSave.to)
+    return storageService.post(STORAGE_KEY, newEmail)
   }
 }
 
