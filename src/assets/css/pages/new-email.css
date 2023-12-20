@@ -1,0 +1,14 @@
+.new-email {
+    background-color: rgb(217, 217, 252);
+    position: fixed;
+    bottom: 0;
+    left: 50px;
+    height: 300px;
+    width: 300px;
+}
+
+.new-email .header{
+    display: flex;
+    
+
+}

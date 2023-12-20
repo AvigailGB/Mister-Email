@@ -2,14 +2,20 @@
     display: flex;
     cursor: pointer;
     font-weight: bold;
+    border-bottom: 1px solid rgb(220, 220, 220);
 }
 
-.email-container div {
+.email-preview .email-container > link{
+    display: grid;
+    grid-auto-flow: column;
+}
+
+/* .email-container div {
     display: flex;
     flex-direction: row;
     padding: 5px;
     font-size: 14px;
-}
+} */
 
 .email-preview .read{
     background-color: rgb(236, 242, 254); 
@@ -43,7 +49,7 @@
 }
 .email-container .email-subject{
     flex-grow: 1;
-    flex-shrink: 4;
+    /* flex-shrink: 4; */
     min-width: 100px;
 }
 .email-container .email-time :hover{

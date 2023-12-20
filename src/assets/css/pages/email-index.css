@@ -5,3 +5,7 @@
 .email-index .tool-bar{
     width: 200px;
 }
+
+.email-index .body{
+    /* position: absolute */
+}

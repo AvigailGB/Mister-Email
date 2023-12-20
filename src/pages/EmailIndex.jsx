@@ -60,7 +60,7 @@ export function EmailIndex() {
 
   if (!emails) return <div>Loading...</div>
   return (
-    <section className="email-index">
+    <section className="email-index app-layout">
       <section className="tool-bar">
         <EmailToolBar onSetFilter={onSetFilter} onOpenNewEmail={onOpenNewEmail}/>
       </section>
