@@ -9,6 +9,7 @@ export function EmailFilter({onSetFilter}) {
 
   return (
     <section className="email-filter">
+      <form></form>
       <input onChange={handleChange} name="txt" type="text" />
     </section>
   )

@@ -6,12 +6,14 @@ import { EmailFilter } from "../cmps/EmailFilter"
 import { EmailToolBar } from "../cmps/emailToolBar"
 import { EmailOptions } from "../cmps/EmailOptions"
 import { NewEmail } from "./NewEmail"
+import { Outlet, useParams} from "react-router-dom"
 
 export function EmailIndex() {
   const [emails, setEmails] = useState(null)
   const [filterBy, setFilterBy] = useState({disply: 'to'})
   const [openNewEmail, setOpenNewEmail] = useState(null)
 
+  const params = useParams();
   const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
@@ -67,7 +69,11 @@ export function EmailIndex() {
       <section className="body">
         <EmailFilter onSetFilter={onSetFilter} />
         <EmailOptions onSetFilter={onSetFilter} />
+        {params.emailId ? (
+          <Outlet />
+        ) : (
         <EmailList emails={emails} onUpdateEmail={onUpdateEmail} onRemoveEmail={onRemoveEmail}/>
+        )}
         {openNewEmail && <NewEmail loggedinUser={loggedinUser} onOpenNewEmail={onOpenNewEmail}/>}
       </section>
     </section>

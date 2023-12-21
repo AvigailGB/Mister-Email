@@ -1,11 +1,4 @@
 .email-index{
-    display: flex;
-}
-
-.email-index .tool-bar{
-    width: 200px;
-}
-
-.email-index .body{
-    /* position: absolute */
+    display: grid;
+    grid-template-columns: 200px 1fr;
 }

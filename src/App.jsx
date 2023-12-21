@@ -3,7 +3,7 @@ import { Navigate, Route, HashRouter as Router, Routes } from "react-router-dom"
 import { Home } from "./pages/Home"
 import { AboutUs } from "./pages/AboutUs"
 import { EmailIndex } from "./pages/EmailIndex"
-import { EmailDetails } from "./pages/EmailDetails"
+import { EmailDetails } from "./cmps/EmailDetails"
 import { AppHeader } from "./cmps/AppHeader"
 
 export function App() {
@@ -18,8 +18,9 @@ export function App() {
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
-            <Route path="/email" element={<EmailIndex />} />
-            <Route path="/email/:emailId" element={<EmailDetails />} />
+            <Route path="/email" element={<EmailIndex />}>
+              <Route path="/email/:emailId" element={<EmailDetails />} />
+            </Route>
             <Route index element={<Navigate to="/home" />} />
           </Routes>
         </main>

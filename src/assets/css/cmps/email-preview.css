@@ -1,13 +1,15 @@
 .email-preview .email-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 50px 1fr 100px;
     cursor: pointer;
     font-weight: bold;
     border-bottom: 1px solid rgb(220, 220, 220);
+    padding: 10px 0;
 }
 
-.email-preview .email-container > link{
+.email-preview .email-container a{
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: 200px 1fr;
 }
 
 /* .email-container div {
@@ -18,7 +20,7 @@
 } */
 
 .email-preview .read{
-    background-color: rgb(236, 242, 254); 
+    background-color: #f2f6fc; 
     font-weight: normal;
  }
 
@@ -52,6 +54,17 @@
     /* flex-shrink: 4; */
     min-width: 100px;
 }
-.email-container .email-time :hover{
+.email-container .email-time:hover{
     display: none;
+}
+
+.email-container .delete-options{
+    display: none;
+}
+.email-container .delete-options {
+    display: grid;
+    grid-auto-columns: 1fr;
+}
+.email-container .delete-options:hover{
+    display: block;
 }
