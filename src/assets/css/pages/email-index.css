@@ -1,4 +1,9 @@
 .email-index{
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 256px 1fr;
+}
+
+
+.email-index .email-filter{
+    grid-column: 1 /-1;
 }

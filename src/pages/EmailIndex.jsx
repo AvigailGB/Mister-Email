@@ -6,17 +6,18 @@ import { EmailFilter } from "../cmps/EmailFilter"
 import { EmailToolBar } from "../cmps/emailToolBar"
 import { EmailOptions } from "../cmps/EmailOptions"
 import { NewEmail } from "./NewEmail"
-import { Outlet, useParams} from "react-router-dom"
+import { Outlet, useParams } from "react-router-dom"
+import { utilService } from "../services/util.service"
 
 export function EmailIndex() {
   const [emails, setEmails] = useState(null)
-  const [filterBy, setFilterBy] = useState({disply: 'to'})
+  const [filterBy, setFilterBy] = useState(utilService.getDefaultFilter())
   const [openNewEmail, setOpenNewEmail] = useState(null)
 
-  const params = useParams();
+  const params = useParams()
   const loggedinUser = {
-    email: 'user@appsus.com',
-    fullname: 'Mahatma Appsus'
+    email: "user@appsus.com",
+    fullname: "Mahatma Appsus",
   }
 
   useEffect(() => {
@@ -24,37 +25,58 @@ export function EmailIndex() {
   }, [filterBy])
 
   async function loadEmails() {
-    try{
+    try {
       const emails = await emailService.query(filterBy, loggedinUser)
       setEmails(emails)
-    } catch (error){
-      console.log('error:', error);
+    } catch (error) {
+      console.log("error:", error)
     }
   }
   async function onRemoveEmail(emailId) {
-    try{
+    try {
       await emailService.remove(emailId)
-      setEmails(prevEmails => {
-        return prevEmails.filter(email => email.id !== emailId)
+      setEmails((prevEmails) => {
+        return prevEmails.filter((email) => email.id !== emailId)
       })
-    } catch (error){
-      console.log('error:', error);
+    } catch (error) {
+      console.log("error:", error)
     }
   }
 
   function onSetFilter(filterBy) {
-    setFilterBy(prevFilter => ({...prevFilter, ...filterBy}))
+    console.log(filterBy);
+    setFilterBy({trash: false, isStarred: false})
+    setFilterBy((prevFilter) => ({ ...prevFilter, ...filterBy }))
   }
 
-  async function onUpdateEmail(email){
-    try{
-      emailService.save(email)
-    } catch (error){
-      console.log('error:', error);
+  async function onAddateEmail(email) {
+    try {
+      const addEmail = await emailService.save(email)
+      setEmails((prevEmails) => [...prevEmails, addEmail])
+    } catch (error) {
+      console.log("error:", error)
+    }
+  }
+  async function onUpdateEmail(email) {
+    try {
+      const updatedEmail = await emailService.save(email)
+      if (!updatedEmail.removedAt) {
+        setEmails((prevEmails) =>
+          prevEmails.map((email) =>
+            email.id === updatedEmail.id ? updatedEmail : email
+          )
+        )
+      }else {
+        setEmails((prevEmails) => {
+          return prevEmails.filter((email) => email.id !== updatedEmail.id)
+        })
+      }
+    } catch (error) {
+      console.log("error:", error)
     }
   }
 
-  function onOpenNewEmail(){
+  function onOpenNewEmail() {
     setOpenNewEmail(!openNewEmail)
   }
 
@@ -63,18 +85,25 @@ export function EmailIndex() {
   if (!emails) return <div>Loading...</div>
   return (
     <section className="email-index app-layout">
-      <section className="tool-bar">
-        <EmailToolBar onSetFilter={onSetFilter} onOpenNewEmail={onOpenNewEmail}/>
-      </section>
+      <EmailFilter onSetFilter={onSetFilter} />
+      <EmailToolBar onSetFilter={onSetFilter} onOpenNewEmail={onOpenNewEmail} />
       <section className="body">
-        <EmailFilter onSetFilter={onSetFilter} />
         <EmailOptions onSetFilter={onSetFilter} />
         {params.emailId ? (
           <Outlet />
         ) : (
-        <EmailList emails={emails} onUpdateEmail={onUpdateEmail} onRemoveEmail={onRemoveEmail}/>
+          <EmailList
+            emails={emails}
+            onUpdateEmail={onUpdateEmail}
+            onRemoveEmail={onRemoveEmail}
+          />
         )}
-        {openNewEmail && <NewEmail loggedinUser={loggedinUser} onOpenNewEmail={onOpenNewEmail}/>}
+        {openNewEmail && (
+          <NewEmail
+            loggedinUser={loggedinUser}
+            onOpenNewEmail={onOpenNewEmail}
+          />
+        )}
       </section>
     </section>
   )

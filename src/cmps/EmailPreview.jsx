@@ -26,7 +26,12 @@ export function EmailPreview({ email , onUpdateEmail, onRemoveEmail}) {
     }
 
     function onRemove(){
-      onRemoveEmail(email.id)
+      if(email.removedAt){
+        onRemoveEmail(email.id)
+      }else{
+        email.removedAt = Date.now()
+        onUpdateEmail(email)
+      }
     }
 
     const mailStatusClass = email.isRead? 'read' : ''

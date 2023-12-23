@@ -8,13 +8,16 @@ export function EmailToolBar({onSetFilter, onOpenNewEmail }){
     function handleChange(ev) {
         console.log('innerText', ev.target.id);
         const value = ev.target.id
+
         if(value === 'to' || value === 'from'){
             onSetFilter({disply: value})
         }
-        if(value === 'isStarred'){
+        else if(value === 'isStarred'){
             setStarred(!starred)
-            console.log(starred);
             onSetFilter({isStarred: starred})
+        }
+        else if(value === 'trash'){
+            onSetFilter({trash: true});
         }
       }
 
@@ -26,7 +29,7 @@ export function EmailToolBar({onSetFilter, onOpenNewEmail }){
             <div className="starred-tool" id="isStarred"onClick={handleChange}>Starred</div>
             <div className="sent-tool" id="from" onClick={handleChange}>Sent</div>
             <div className="draft-tool">Draft</div>
-            <div className="trash-tool">Trash</div>
+            <div className="trash-tool" id="trash" onClick={handleChange}>Trash</div>
         </section>
     </section>
 }

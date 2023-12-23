@@ -2,7 +2,8 @@
 export const utilService = {
     makeId,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    getDefaultFilter
 }
 
 function makeId(length = 5) {
@@ -13,6 +14,17 @@ function makeId(length = 5) {
     }
     return text;
 }
+
+function getDefaultFilter() {
+    return {
+        txt: '',
+        isRead:false,
+        isStarred:false,
+        disply: 'to',
+        trash:false
+    }
+}
+
 
 function saveToStorage(key, value) {
     localStorage[key] = JSON.stringify(value);

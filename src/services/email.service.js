@@ -17,7 +17,16 @@ _createEmails()
 async function query(filterBy, loggedinUser) {
   let emails = await storageService.query(STORAGE_KEY)
   if (filterBy) {
-    let { txt, isRead, isStarred, disply} = filterBy
+    let { txt, isRead, isStarred, disply, trash} = filterBy
+    console.log(trash);
+    if(!trash){
+      console.log(emails);
+      emails = emails.filter(email => !email.removedAt)
+    }
+    else{
+      console.log(emails);
+      emails = emails.filter(email => email.removedAt)
+    } 
     const regeTxtTerm = new RegExp(txt, 'i')
     if(disply){
       emails = emails.filter(email => email[disply] === loggedinUser.email)
