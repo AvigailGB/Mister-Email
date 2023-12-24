@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 
-export function EmailToolBar({onSetFilter, onOpenNewEmail }){
+export function EmailToolBar({onSetFilter, onOpenNewEmail, countUnRead}){
 
     const [starred, setStarred] = useState(true)
-
+    console.log(countUnRead);
     function handleChange(ev) {
         console.log('innerText', ev.target.id);
         const value = ev.target.id
@@ -26,6 +26,7 @@ export function EmailToolBar({onSetFilter, onOpenNewEmail }){
         <button className="composeing" onClick={onOpenNewEmail}>Compose</button>
         <section className="tools-section">
             <div className="inbox-tool" id="to" onClick={handleChange}>Inbox</div>
+            <div>{countUnRead}</div>
             <div className="starred-tool" id="isStarred"onClick={handleChange}>Starred</div>
             <div className="sent-tool" id="from" onClick={handleChange}>Sent</div>
             <div className="draft-tool">Draft</div>

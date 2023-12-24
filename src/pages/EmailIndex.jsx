@@ -13,7 +13,8 @@ export function EmailIndex() {
   const [emails, setEmails] = useState(null)
   const [filterBy, setFilterBy] = useState(utilService.getDefaultFilter())
   const [openNewEmail, setOpenNewEmail] = useState(null)
-
+  const [countUnRead, setCountUnRead] = useState(0)
+  
   const params = useParams()
   const loggedinUser = {
     email: "user@appsus.com",
@@ -27,6 +28,11 @@ export function EmailIndex() {
   async function loadEmails() {
     try {
       const emails = await emailService.query(filterBy, loggedinUser)
+      const countUnRead = emails.reduce((acc, email) => {
+        if(!email.isRead)acc++
+        return acc
+      },0)
+      setCountUnRead(countUnRead)
       setEmails(emails)
     } catch (error) {
       console.log("error:", error)
@@ -76,6 +82,10 @@ export function EmailIndex() {
     }
   }
 
+  function setUnReadCount(){
+    setCountUnRead((prevCount) => {return prevCount--})
+  }
+
   function onOpenNewEmail() {
     setOpenNewEmail(!openNewEmail)
   }
@@ -86,7 +96,7 @@ export function EmailIndex() {
   return (
     <section className="email-index app-layout">
       <EmailFilter onSetFilter={onSetFilter} />
-      <EmailToolBar onSetFilter={onSetFilter} onOpenNewEmail={onOpenNewEmail} />
+      <EmailToolBar onSetFilter={onSetFilter} onOpenNewEmail={onOpenNewEmail} countUnRead={countUnRead}/>
       <section className="body">
         <EmailOptions onSetFilter={onSetFilter} />
         {params.emailId ? (
@@ -96,6 +106,7 @@ export function EmailIndex() {
             emails={emails}
             onUpdateEmail={onUpdateEmail}
             onRemoveEmail={onRemoveEmail}
+            setUnReadCount={setUnReadCount}
           />
         )}
         {openNewEmail && (

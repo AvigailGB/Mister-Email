@@ -7,21 +7,18 @@ import { CgTrash } from "react-icons/cg";
 
 
 
-export function EmailPreview({ email , onUpdateEmail, onRemoveEmail}) {
-    const [isStarred, setIsStarred] = useState(email.isStarred)
-    const [isRead, setIsRead] = useState(email.isRead)
+export function EmailPreview({ email , onUpdateEmail, onRemoveEmail, setUnReadCount}) {
 
     function setStarred(){
         email.isStarred = !email.isStarred
         onUpdateEmail(email)
-        setIsStarred(!isStarred)
     }
 
     function setRead(){
       if(!email.isRead){
         email.isRead = true
         onUpdateEmail(email)
-        setIsRead(true)
+        setUnReadCount()
         }
     }
 
