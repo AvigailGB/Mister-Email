@@ -1,3 +1,30 @@
 .email-filter{
+    display: grid;
+    grid-template-columns: 256px 1fr;
+}
+.email-filter form{
     background-color: #eaf1fb;
+    border-radius: 24px;
+    padding: 3px;
+}
+
+.email-filter input{
+    height: 30px;
+    margin-top: 10px 0;
+    background: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D)transparent;
+    writing-mode: horizontal-tb
+}
+
+.email-filter .search{
+    border-radius: 50%;
+    margin: 3px 5px 0;
+    padding: 5px;
+    height: 1.7em;
+    width: 1.7em;
+    :hover{
+        background-color: #c85858;
+    }
+}
+.email-filter .search:hover{
+    background-color: #593333;
 }
