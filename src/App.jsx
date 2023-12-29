@@ -18,8 +18,8 @@ export function App() {
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
-            <Route path="/email" element={<EmailIndex />}>
-              <Route path="/email/:emailId" element={<EmailDetails />} />
+            <Route path="/email/:folder" element={<EmailIndex />}>
+              <Route path="/email/:folder/:emailId" element={<EmailDetails />} />
             </Route>
             <Route index element={<Navigate to="/home" />} />
           </Routes>

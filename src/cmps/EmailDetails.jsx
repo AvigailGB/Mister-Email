@@ -14,7 +14,7 @@ export function EmailDetails() {
   }, [])
 
   function onBack(){
-    navigate('/email')
+    navigate('/email/inbox')
   }
 
   async function loadEmail() {

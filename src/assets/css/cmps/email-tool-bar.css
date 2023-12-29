@@ -1,0 +1,13 @@
+
+
+.email-tool-bar .composeing{
+    height: 40px;
+    margin: 8px 0 8px 0;
+    padding: 0 0 0 8px ;
+}
+
+.email-tool-bar .inbox-tool{
+    display:grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}

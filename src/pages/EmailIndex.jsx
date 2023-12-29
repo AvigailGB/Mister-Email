@@ -6,38 +6,42 @@ import { EmailFilter } from "../cmps/EmailFilter"
 import { EmailToolBar } from "../cmps/emailToolBar"
 import { EmailOptions } from "../cmps/EmailOptions"
 import { NewEmail } from "./NewEmail"
-import { Outlet, useParams } from "react-router-dom"
+import { Outlet, useParams, useSearchParams } from "react-router-dom"
 import { utilService } from "../services/util.service"
 
 export function EmailIndex() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [emails, setEmails] = useState(null)
   const [filterBy, setFilterBy] = useState(utilService.getDefaultFilter())
   const [openNewEmail, setOpenNewEmail] = useState(null)
   const [countUnRead, setCountUnRead] = useState(0)
   
   const params = useParams()
+  console.log('param', params);
+  const [currFolder, setCurrFolder] = useState(params.folder)
+  
   const loggedinUser = {
     email: "user@appsus.com",
     fullname: "Mahatma Appsus",
   }
+  
 
   useEffect(() => {
+    setSearchParams(filterBy)
+    console.log(searchParams);
     loadEmails()
   }, [filterBy])
 
   async function loadEmails() {
     try {
-      const emails = await emailService.query(filterBy, loggedinUser)
-      const countUnRead = emails.reduce((acc, email) => {
-        if(!email.isRead)acc++
-        return acc
-      },0)
+      const {emails, countUnRead} = await emailService.query(filterBy, loggedinUser)
       setCountUnRead(countUnRead)
       setEmails(emails)
     } catch (error) {
       console.log("error:", error)
     }
   }
+
   async function onRemoveEmail(emailId) {
     try {
       await emailService.remove(emailId)
@@ -50,7 +54,6 @@ export function EmailIndex() {
   }
 
   function onSetFilter(filterBy) {
-    console.log(filterBy);
     setFilterBy({trash: false, isStarred: false})
     setFilterBy((prevFilter) => ({ ...prevFilter, ...filterBy }))
   }
@@ -63,6 +66,7 @@ export function EmailIndex() {
       console.log("error:", error)
     }
   }
+
   async function onUpdateEmail(email) {
     try {
       const updatedEmail = await emailService.save(email)
@@ -83,7 +87,7 @@ export function EmailIndex() {
   }
 
   function setUnReadCount(){
-    setCountUnRead((prevCount) => {return prevCount--})
+    setCountUnRead((prevCount) => {return prevCount-1})
   }
 
   function onOpenNewEmail() {
@@ -101,7 +105,7 @@ export function EmailIndex() {
         <EmailOptions onSetFilter={onSetFilter} />
         {params.emailId ? (
           <Outlet />
-        ) : (
+        ):(
           <EmailList
             emails={emails}
             onUpdateEmail={onUpdateEmail}

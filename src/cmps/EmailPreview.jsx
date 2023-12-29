@@ -38,7 +38,7 @@ export function EmailPreview({ email , onUpdateEmail, onRemoveEmail, setUnReadCo
       <div className={`email-container ${(mailStatusClass)}`} onClick={() => { setRead() }}>
         <FaRegStar className={`email-star ${(starModClass)}`} onClick={() => { setStarred()}}/>
         <FaStar className={`email-starred ${(starModClass)}`} onClick={() => { setStarred()}}/>
-        <Link to={`/email/${email.id}`}>
+        <Link to={`/email/:folder/${email.id}`}>
         <div className="email-titel">{email.from}</div>
         <div className="email-subject">{email.subject}</div>
         </Link>

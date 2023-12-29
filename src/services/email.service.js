@@ -16,22 +16,21 @@ _createEmails()
 
 async function query(filterBy, loggedinUser) {
   let emails = await storageService.query(STORAGE_KEY)
-  if (!filterBy) return emails
+  const countUnRead = emails.reduce((acc, email) => {
+    if(!email.isRead)acc++
+    return acc
+  },0)
+  if (!filterBy) return {emails, countUnRead}
   else {
     let { txt, isRead, isStarred, disply, trash } = filterBy
-    console.log(trash)
     if (!trash) {
-      console.log(emails)
       emails = emails.filter((email) => !email.removedAt)
     } else {
-      console.log(emails)
       emails = emails.filter((email) => email.removedAt)
     }
-    const regeTxtTerm = new RegExp(txt, "i")
     if (disply) {
       emails = emails.filter((email) => email[disply] === loggedinUser.email)
     }
-    console.log(isStarred)
     if (isStarred) {
       emails = emails.filter((email) => email.isStarred)
     }
@@ -39,11 +38,12 @@ async function query(filterBy, loggedinUser) {
       isRead = isRead === "read" ? true : false
       emails = emails.filter((email) => email.isRead === isRead)
     }
+    const regeTxtTerm = new RegExp(txt, "i")
     emails = emails.filter(
       (email) => regeTxtTerm.test(email.subject) || regeTxtTerm.test(email.body)
     )
   }
-  return emails
+  return {emails, countUnRead}
 }
 
 function getById(id) {
