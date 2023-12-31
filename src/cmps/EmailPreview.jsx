@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { emailService } from '../services/email.service'
 import { FaRegStar ,FaStar} from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CgTrash } from "react-icons/cg";
 
 
@@ -9,7 +9,9 @@ import { CgTrash } from "react-icons/cg";
 
 export function EmailPreview({ email , onUpdateEmail, onRemoveEmail, setUnReadCount}) {
 
-    function setStarred(){
+  const params = useParams()
+
+  function setStarred(){
         email.isStarred = !email.isStarred
         onUpdateEmail(email)
     }
@@ -38,7 +40,7 @@ export function EmailPreview({ email , onUpdateEmail, onRemoveEmail, setUnReadCo
       <div className={`email-container ${(mailStatusClass)}`} onClick={() => { setRead() }}>
         <FaRegStar className={`email-star ${(starModClass)}`} onClick={() => { setStarred()}}/>
         <FaStar className={`email-starred ${(starModClass)}`} onClick={() => { setStarred()}}/>
-        <Link to={`/email/:folder/${email.id}`}>
+        <Link to={`/email/${params.folder}/${email.id}`}>
         <div className="email-titel">{email.from}</div>
         <div className="email-subject">{email.subject}</div>
         </Link>

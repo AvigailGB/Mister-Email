@@ -5,15 +5,8 @@ import { EmailFolderList } from "./EmailFolderList";
 export function EmailToolBar({ onSetFilter, onOpenNewEmail, countUnRead }) {
   const [starred, setStarred] = useState(true)
   const params = useParams
-  console.log(params);
 
-  useEffect(() => {
-    console.log('param', params);
-    
-  })
-
-
-  
+ 
   function handleChange(ev) {
     const value = ev.target.id
 

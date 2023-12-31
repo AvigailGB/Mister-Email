@@ -14,7 +14,7 @@ export function EmailDetails() {
   }, [])
 
   function onBack(){
-    navigate('/email/inbox')
+    navigate('/email/'+ params.folder)
   }
 
   async function loadEmail() {

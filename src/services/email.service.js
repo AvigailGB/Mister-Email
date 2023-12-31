@@ -22,16 +22,17 @@ async function query(filterBy, loggedinUser) {
   },0)
   if (!filterBy) return {emails, countUnRead}
   else {
-    let { txt, isRead, isStarred, disply, trash } = filterBy
-    if (!trash) {
+    let { txt, isRead, folder } = filterBy
+    if (folder !== 'trash') {
       emails = emails.filter((email) => !email.removedAt)
     } else {
       emails = emails.filter((email) => email.removedAt)
     }
-    if (disply) {
-      emails = emails.filter((email) => email[disply] === loggedinUser.email)
-    }
-    if (isStarred) {
+    if (folder === 'inbox') {
+      emails = emails.filter((email) => email.to === loggedinUser.email)
+    }else if (folder === 'sent'){
+      emails = emails.filter((email) => email.from === loggedinUser.email)
+    }else if (folder === 'starred') {
       emails = emails.filter((email) => email.isStarred)
     }
     if (isRead) {

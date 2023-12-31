@@ -10,16 +10,13 @@ import { Outlet, useParams, useSearchParams } from "react-router-dom"
 import { utilService } from "../services/util.service"
 
 export function EmailIndex() {
+  const [params, setParams] = useState(useParams())
   const [searchParams, setSearchParams] = useSearchParams()
   const [emails, setEmails] = useState(null)
-  const [filterBy, setFilterBy] = useState(utilService.getDefaultFilter())
+  const [filterBy, setFilterBy] = useState({...utilService.getDefaultFilter(), folder:params.folder})
   const [openNewEmail, setOpenNewEmail] = useState(null)
   const [countUnRead, setCountUnRead] = useState(0)
-  
-  const params = useParams()
-  console.log('param', params);
-  const [currFolder, setCurrFolder] = useState(params.folder)
-  
+    
   const loggedinUser = {
     email: "user@appsus.com",
     fullname: "Mahatma Appsus",
@@ -27,10 +24,10 @@ export function EmailIndex() {
   
 
   useEffect(() => {
+    filterBy.folder = params.folder
     setSearchParams(filterBy)
-    console.log(searchParams);
     loadEmails()
-  }, [filterBy])
+  }, [filterBy, params])
 
   async function loadEmails() {
     try {
