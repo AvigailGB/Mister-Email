@@ -1,6 +1,10 @@
 .email-folder-list{
-    background-color: #f9aeae;
+    padding: 5px;
 }
  .email-folder-list a{
     display: block;
+ }
+
+ .email-folder-list a.active{
+   background-color:#a8c7fa;
  }

@@ -5,12 +5,10 @@ export function EmailFolderList({countUnRead}){
   const params = useParams()
   console.log('params', params);  
   
-  function handleChange(){
-        console.log('handleChange');
-    }
+ 
     return <section className="email-folder-list">
         <section className="tools-section">
-        <NavLink to="/email/inbox">inbox</NavLink>
+        <NavLink to="/email/inbox">inbox<span>{countUnRead}</span></NavLink>
         <NavLink to="/email/starred">Starred</NavLink>
         <NavLink to="/email/sent">Sent</NavLink>
         <NavLink to="/email/draft">Draft</NavLink>

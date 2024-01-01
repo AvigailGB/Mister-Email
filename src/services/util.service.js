@@ -3,7 +3,8 @@ export const utilService = {
     makeId,
     saveToStorage,
     loadFromStorage,
-    getDefaultFilter
+    getDefaultFilter,
+    getFilterFromParams
 }
 
 function makeId(length = 5) {
@@ -17,13 +18,21 @@ function makeId(length = 5) {
 
 function getDefaultFilter() {
     return {
+        folder: 'inbox',
         txt: '',
         isRead:false,
-        isStarred:false,
-        disply: 'to',
-        trash:false
     }
 }
+
+function getFilterFromParams(searchParams) {
+    const defaultFilter = getDefaultFilter()
+    const filterBy = {}
+    for (const field in defaultFilter) {
+        filterBy[field] = searchParams.get(field) || defaultFilter[field]
+    }
+    return filterBy
+}
+
 
 
 function saveToStorage(key, value) {

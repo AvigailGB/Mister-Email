@@ -96,6 +96,7 @@ function createEmail(
   }
 }
 
+
 function _createEmails() {
   let emails = utilService.loadFromStorage(STORAGE_KEY)
   if (!emails || !emails.length) {

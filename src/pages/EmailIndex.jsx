@@ -3,17 +3,17 @@ import { useEffect, useState } from "react"
 import { emailService } from "../services/email.service"
 import { EmailList } from "../cmps/EmailList"
 import { EmailFilter } from "../cmps/EmailFilter"
-import { EmailToolBar } from "../cmps/emailToolBar"
+import { EmailToolBar } from "../cmps/EmailToolBar"
 import { EmailOptions } from "../cmps/EmailOptions"
 import { NewEmail } from "./NewEmail"
 import { Outlet, useParams, useSearchParams } from "react-router-dom"
 import { utilService } from "../services/util.service"
 
 export function EmailIndex() {
-  const [params, setParams] = useState(useParams())
+  const params = useParams()
   const [searchParams, setSearchParams] = useSearchParams()
   const [emails, setEmails] = useState(null)
-  const [filterBy, setFilterBy] = useState({...utilService.getDefaultFilter(), folder:params.folder})
+  const [filterBy, setFilterBy] = useState(utilService.getFilterFromParams(searchParams))
   const [openNewEmail, setOpenNewEmail] = useState(null)
   const [countUnRead, setCountUnRead] = useState(0)
     
@@ -24,16 +24,16 @@ export function EmailIndex() {
   
 
   useEffect(() => {
-    filterBy.folder = params.folder
-    setSearchParams(filterBy)
+    console.log(filterBy);
+    setSearchParams({filterBy})
     loadEmails()
-  }, [filterBy, params])
+  }, [filterBy, params.folder])
 
   async function loadEmails() {
     try {
-      const {emails, countUnRead} = await emailService.query(filterBy, loggedinUser)
+      const {emails, countUnRead} = await emailService.query({filterBy, folder: params.folder}, loggedinUser)
       setCountUnRead(countUnRead)
-      setEmails(emails)
+      setEmails([...emails])
     } catch (error) {
       console.log("error:", error)
     }
@@ -51,7 +51,6 @@ export function EmailIndex() {
   }
 
   function onSetFilter(filterBy) {
-    setFilterBy({trash: false, isStarred: false})
     setFilterBy((prevFilter) => ({ ...prevFilter, ...filterBy }))
   }
 
@@ -97,7 +96,7 @@ export function EmailIndex() {
   return (
     <section className="email-index app-layout">
       <EmailFilter onSetFilter={onSetFilter} />
-      <EmailToolBar onSetFilter={onSetFilter} onOpenNewEmail={onOpenNewEmail} countUnRead={countUnRead}/>
+      <EmailToolBar onOpenNewEmail={onOpenNewEmail} countUnRead={countUnRead}/>
       <section className="body">
         <EmailOptions onSetFilter={onSetFilter} />
         {params.emailId ? (
