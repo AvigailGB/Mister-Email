@@ -94,7 +94,7 @@ export function EmailIndex() {
 
   if (!emails) return <div>Loading...</div>
   return (
-    <section className="email-index app-layout">
+    <section className="email-index">
       <EmailFilter onSetFilter={onSetFilter} />
       <EmailToolBar onOpenNewEmail={onOpenNewEmail} countUnRead={countUnRead}/>
       <section className="body">

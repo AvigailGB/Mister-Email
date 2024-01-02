@@ -1,9 +1,16 @@
 .email-index{
+    height: 100%;
     display: grid;
     grid-template-columns: 256px 1fr;
+    background-color: #f6f8fc;
 }
 
 
 .email-index .email-filter{
     grid-column: 1 /-1;
+}
+
+.email-index .body{
+    background-color: #fff;
+    border-radius: 16px;
 }
