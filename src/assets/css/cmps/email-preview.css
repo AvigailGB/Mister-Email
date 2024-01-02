@@ -54,17 +54,13 @@
     /* flex-shrink: 4; */
     min-width: 100px;
 }
-.email-container .email-time:hover{
-    display: none;
-}
+
 
 .email-container .delete-options{
-    display: none;
+    display: grid;
+    grid-auto-flow: column;
 }
 .email-container .delete-options {
     display: grid;
     grid-auto-columns: 1fr;
-}
-.email-container .delete-options:hover{
-    display: block;
 }
