@@ -1,0 +1,26 @@
+.email-filter {
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    padding: 8px;
+
+    img {
+        height: 40px;
+        width: 109px;
+    }
+
+    form {
+        max-width: 720px;
+        background-color: #eaf1fb;
+        border-radius: 24px;
+        padding: 3px;
+        position: relative;
+    }
+
+    input {
+        height: 30px;
+        margin-top: 10px 0;
+        background: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D)transparent;
+        writing-mode: horizontal-tb;
+        border: none;
+    }
+}

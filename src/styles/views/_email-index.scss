@@ -1,0 +1,11 @@
+.email-index{
+    .email-filter{
+        grid-area: f;
+    }
+    .email-tool-bar{
+        grid-area: t;
+    }
+    .body{
+        grid-area: b;
+    }
+}

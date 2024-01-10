@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom"
 
 export function AppHeader() {
   return (
-    <section className="app-header">
-      <section className="app-layout header">
+    <section className="app-header full main-layout">
+      <section className="header">
         <h1 className="titel">Mister Email</h1>
         <nav>
           <NavLink to="/home">Home</NavLink>

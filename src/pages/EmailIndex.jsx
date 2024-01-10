@@ -8,6 +8,7 @@ import { EmailOptions } from "../cmps/EmailOptions"
 import { NewEmail } from "./NewEmail"
 import { Outlet, useParams, useSearchParams } from "react-router-dom"
 import { utilService } from "../services/util.service"
+import { eventBusService } from "../services/event-bus.service"
 
 export function EmailIndex() {
   const params = useParams()
@@ -45,6 +46,7 @@ export function EmailIndex() {
       setEmails((prevEmails) => {
         return prevEmails.filter((email) => email.id !== emailId)
       })
+      eventBusService.emit('show-user-msg',{type: 'seccess', txt:'Email removed'})
     } catch (error) {
       console.log("error:", error)
     }
@@ -94,7 +96,7 @@ export function EmailIndex() {
 
   if (!emails) return <div>Loading...</div>
   return (
-    <section className="email-index">
+    <section className="email-index email-layout">
       <EmailFilter onSetFilter={onSetFilter} />
       <EmailToolBar onOpenNewEmail={onOpenNewEmail} countUnRead={countUnRead}/>
       <section className="body">

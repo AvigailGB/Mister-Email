@@ -3,7 +3,7 @@
     grid-template-columns: 50px 1fr 100px;
     cursor: pointer;
     font-weight: bold;
-    border-bottom: 1px solid rgb(220, 220, 220);
+    border-bottom: 1px solid #dcdcdc;
     padding: 10px 0;
 }
 

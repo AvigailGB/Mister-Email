@@ -5,8 +5,7 @@
 
 .app-header .header{
     color: white;
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
     justify-content: space-between;
 }
 

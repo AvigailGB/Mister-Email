@@ -1,0 +1,16 @@
+.email-folder-list{
+    padding: 5px 10px 5px 0;
+
+    a{
+        height: 32px;
+        padding: 0 10px 0 20px;
+          display: block;
+          border-radius: 0 15px 15px 0;
+          display: grid;
+          grid-template-columns: 30px 1fr 20px;
+          align-items: center;
+          &.active{
+            background-color: $clr10;
+          }      
+       }
+}

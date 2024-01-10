@@ -1,0 +1,22 @@
+.app-header {
+    background: gray;
+
+    .header {
+        color: $clr1;
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            color: $clr1;
+            padding-left: 5px;
+            &:hover{
+                font-weight: bold;
+            }
+            &.active {
+                color: $clr2;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+$clr1: #fff;
+$clr2: #202124;;
+$clr3: #f2f6fc;
+$clr4: #f6f8fc;
+$clr5: #808080;
+$clr6: #b8d3ff;
+$clr7: #dcdcdc;
+$clr8: #d9d9fc;
+$clr5: #eaf1fb;
+$clr10: #b8d3ff;
+
+// LAYOUT
+$layoutPadding: 20px;
+
+// LAYOUT BREAKPOINTS
+$break-narrow: 1200px;
+$break-normal: 1360px;
+$break-wide: 1920px;
+
+$padded-break-narrow: $break-narrow + $layoutPadding * 2;
+$padded-break-normal: $break-normal + $layoutPadding * 2;
+$padded-break-wide: $break-wide + $layoutPadding * 2;
